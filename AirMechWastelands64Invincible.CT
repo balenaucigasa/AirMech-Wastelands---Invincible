@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="38">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>2</ID>
+      <Description>"Invincible"</Description>
+      <LastState/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+//code from here to '[DISABLE]' will be used to enable the cheat
+alloc(newmem,2048,"AirMechWastelands64.exe"+2C5794) 
+label(returnhere)
+label(originalcode)
+label(exit)
+
+alloc(me_address,4,"AirMechWastelands64.exe"+2C5794)
+
+me_address:
+dd (double)0.10000010000
+
+newmem: //this is allocated memory, 0.10000010
+movss xmm0,[me_address]
+
+originalcode:
+movss [rsi+40],xmm0
+
+exit:
+jmp returnhere
+
+"AirMechWastelands64.exe"+2C5794:
+jmp newmem
+returnhere:
+
+
+ 
+ 
+[DISABLE]
+//code from here till the end of the code will be used to disable the cheat
+dealloc(newmem)
+dealloc(me_address)
+"AirMechWastelands64.exe"+2C5794:
+movss [rsi+40],xmm0
+//Alt: db F3 0F 11 46 40
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
